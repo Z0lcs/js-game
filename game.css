@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #3498db;
+    font-family: sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+#score {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+canvas {
+    background: #2980b9;
+    border: 8px solid #1f618d;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: block;
+    margin-bottom: 50px;
+}
