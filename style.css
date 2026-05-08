@@ -1,0 +1,28 @@
+body {
+    background-color: rgb(219, 172, 16);
+}
+
+.fokepernyo {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    min-height: 100vh;    
+    flex-direction: column;
+}
+
+.gombok {
+    background-color: #46178f;
+    box-shadow: #ff6fff 0px 7px 20px;
+    width: 400px;
+    height: 50px;
+    padding: 15px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+a{
+    color: white;
+    text-decoration: none;
+}
