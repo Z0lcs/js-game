@@ -1,27 +1,90 @@
 body {
+    background: linear-gradient(67deg,#864cbf, #c60929,#ffa602);
+    font-family: sans-serif;
+    color: white;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background: #3498db;
-    font-family: sans-serif;
-    color: white;
     overflow: hidden;
 }
 
+canvas {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: block;
+    margin-bottom: 0;
+}
+#container{
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    gap: 50px;
+}
 #score {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 2rem;
+    margin-bottom: 40px;
     font-weight: bold;
 }
 
-canvas {
-    background: #2980b9;
-    border: 8px solid #1f618d;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    display: block;
-    margin-bottom: 50px;
+#fomenuGomb{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    z-index: 10;
+    width: 180px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    float: left;
 }
+
+.score{
+    position: relative;
+    overflow: hidden; 
+    z-index: 1;
+}
+.score::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--magassag, 0%);
+    background: var(--szin, linear-gradient(to top, #3a7bd5, #00d2ff));
+    transition: height 0.5s ease, background 0.5s ease;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+.uveges{
+    background-color: rgba(128, 0, 128, 0.0);
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+a.uveges:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.tartaly{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 250px;
+    height: 300px;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+
