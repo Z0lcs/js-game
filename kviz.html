@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Kacsa Kvíz🦆</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="kviz.js"></script>
+</head>
+<body>
+    <div class="fokepernyo">
+        <h2 id="kerdes-szoveg">Kérdés helye</h2>
+        <div class="gombok"><button id="b0" onclick="valaszEllenorzese(0)">Válasz 1</button></div>
+        <div class="gombok"><button id="b1" onclick="valaszEllenorzese(1)">Válasz 2</button></div>
+        <div class="gombok"><button id="b2" onclick="valaszEllenorzese(2)">Válasz 3</button></div>
+        <div class="gombok"><button id="b3" onclick="valaszEllenorzese(3)">Válasz 4</button></div>
+
+        <div id="vege-uzenet" style="display:none; color:white;">
+            <p id="eredmeny-szoveg"></p>
+            <div class="gombok"><a href="index.html">Vissza a menübe</a></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
