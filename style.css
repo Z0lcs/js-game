@@ -1,13 +1,19 @@
-body {
-    background-color: rgb(219, 172, 16);
+#kviz-doboz {
+    text-align: center;
+    color: white;
+    max-width: 80%;
 }
 
-.fokepernyo {
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    min-height: 100vh;    
-    flex-direction: column;
+#valasz-opciok {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#kerdes {
+    margin-bottom: 30px;
+    font-size: 1.5rem;
 }
 
 .gombok {
@@ -22,28 +28,11 @@ body {
     align-items: center;
     border-radius: 20px;
 }
-a{
-    color: white;
-    text-decoration: none;
-}
-
-#kviz-doboz {
-    text-align: center;
-    color: white;
-    max-width: 80%;
-}
-
-#valasz-opciok {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
-}
 
 .valasz-btn {
     padding: 15px 25px;
     background-color: #444;
-    color: #ffd700; 
+    color: #ffd700;
     border: 2px solid #ffd700;
     border-radius: 10px;
     cursor: pointer;
@@ -58,9 +47,4 @@ a{
 
 .rejtett {
     display: none;
-}
-
-#kerdes {
-    margin-bottom: 30px;
-    font-size: 1.5rem;
 }
