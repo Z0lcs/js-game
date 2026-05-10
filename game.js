@@ -1,155 +1,209 @@
-const canvas = document.getElementById("duckCanvas");
-const ctx = canvas.getContext("2d");
-const scoreElement = document.getElementById("score");
+const vaszon = document.getElementById("duckCanvas");
+const kontextus = vaszon.getContext("2d");
+const pontszamKijelzo = document.getElementById("score");
 
-const GRID = 40;
-const TILE_X = canvas.width / GRID;
-const TILE_Y = canvas.height / GRID;
+const sugar = 15;
+const RACSMERET = 30;
+const vizszintesMezok = 14;
+const fuggolegesMezok = 14;
 
-let snake = [];
+vaszon.width = vizszintesMezok * RACSMERET;
+vaszon.height = fuggolegesMezok * RACSMERET;
+
+const CSEMPE_X_SZAM = vaszon.width / RACSMERET;
+const CSEMPE_Y_SZAM = vaszon.height / RACSMERET;
+
+let kacsaTest = [];
 for (let i = 0; i < 3; i++) {
-    snake.push({ x: 10 - i, y: 5 });
+    kacsaTest.push({ x: 10 - i, y: 10 });
 }
 
-let currentDir = { x: 1, y: 0 };
-let nextDir = { x: 1, y: 0 };
-let moveProgress = 0;
-let moveSpeed = 0.15;
-let score = 0;
+let pontszam = 0; // CSAK EGYSZER DEKLARÁLJUK
+let jatekFut = false;
+let jatekVege = false;
+let aktualisIrany = { x: 1, y: 0 };
+let kovetkezoIrany = { x: 1, y: 0 };
+let mozgasiFolyamat = 0;
+let mozgasiSebesseg = 0.05;
 
-let breads = [];
-for (let i = 0; i < 3; i++) { spawnBread(); }
+let kenyerek = [];
+for (let i = 0; i < 3; i++) { kenyerLetrehozas(); }
 
-window.addEventListener("keydown", e => {
-    if (e.key === "ArrowUp" && currentDir.y === 0) nextDir = { x: 0, y: -1 };
-    if (e.key === "ArrowDown" && currentDir.y === 0) nextDir = { x: 0, y: 1 };
-    if (e.key === "ArrowLeft" && currentDir.x === 0) nextDir = { x: -1, y: 0 };
-    if (e.key === "ArrowRight" && currentDir.x === 0) nextDir = { x: 1, y: 0 };
+window.addEventListener("keydown", esemeny => {
+    if (!jatekFut && !jatekVege && esemeny.key.startsWith("Arrow")) {
+        jatekFut = true;
+    }
+    if (esemeny.key === "ArrowUp" && aktualisIrany.y === 0) kovetkezoIrany = { x: 0, y: -1 };
+    if (esemeny.key === "ArrowDown" && aktualisIrany.y === 0) kovetkezoIrany = { x: 0, y: 1 };
+    if (esemeny.key === "ArrowLeft" && aktualisIrany.x === 0) kovetkezoIrany = { x: -1, y: 0 };
+    if (esemeny.key === "ArrowRight" && aktualisIrany.x === 0) kovetkezoIrany = { x: 1, y: 0 };
+    if (jatekVege && esemeny.code === "Space") {
+        location.reload();
+    }
 });
 
-function spawnBread() {
-    let newPos;
+function kenyerLetrehozas() {
+    let ujPozicio;
     while (true) {
-        newPos = { x: Math.floor(Math.random() * TILE_X), y: Math.floor(Math.random() * TILE_Y) };
-        let occupied = snake.some(p => p.x === newPos.x && p.y === newPos.y) ||
-            breads.some(b => b.x === newPos.x && b.y === newPos.y);
-        if (!occupied) break;
+        ujPozicio = {
+            x: Math.floor(Math.random() * CSEMPE_X_SZAM),
+            y: Math.floor(Math.random() * CSEMPE_Y_SZAM)
+        };
+        let foglalt = kacsaTest.some(p => p.x === ujPozicio.x && p.y === ujPozicio.y) ||
+            kenyerek.some(b => b.x === ujPozicio.x && b.y === ujPozicio.y);
+        if (!foglalt) break;
     }
-    breads.push(newPos);
+    kenyerek.push(ujPozicio);
 }
 
-function update() {
-    moveProgress += moveSpeed;
-    if (moveProgress >= 1) {
-        moveProgress = 0;
-        currentDir = nextDir;
+function frissites() {
+    if (!jatekFut || jatekVege) return;
 
-        const newHead = {
-            x: (snake[0].x + currentDir.x + TILE_X) % TILE_X,
-            y: (snake[0].y + currentDir.y + TILE_Y) % TILE_Y
+    mozgasiFolyamat += mozgasiSebesseg;
+    if (mozgasiFolyamat >= 1) {
+        mozgasiFolyamat = 0;
+        aktualisIrany = kovetkezoIrany;
+
+        const ujFejPozicio = {
+            x: (kacsaTest[0].x + aktualisIrany.x + CSEMPE_X_SZAM) % CSEMPE_X_SZAM,
+            y: (kacsaTest[0].y + aktualisIrany.y + CSEMPE_Y_SZAM) % CSEMPE_Y_SZAM
         };
 
-        if (snake.some(p => p.x === newHead.x && p.y === newHead.y)) {
-            alert("Vége! Pontszám: " + score);
-            location.reload();
+        if (kacsaTest.some(p => p.x === ujFejPozicio.x && p.y === ujFejPozicio.y)) {
+            jatekVege = true;
+            return;
         }
 
-        snake.unshift(newHead);
+        kacsaTest.unshift(ujFejPozicio);
 
-        const breadIndex = breads.findIndex(b => b.x === newHead.x && b.y === newHead.y);
-        if (breadIndex !== -1) {
-            score++;
-            scoreElement.innerText = "Kenyerek: " + score;
-            breads.splice(breadIndex, 1);
-            spawnBread();
+        const kenyerIndex = kenyerek.findIndex(b => b.x === ujFejPozicio.x && b.y === ujFejPozicio.y);
+        if (kenyerIndex !== -1) {
+            pontszam++;
+            pontszamKijelzo.innerText = "Halak: " + pontszam;
+
+            const szazalek = (pontszam / 196) * 100;
+            let szin = "linear-gradient(to top, #3a7bd5, #00d2ff)";
+            if (szazalek > 30) szin = "linear-gradient(to top, #16a085, #2ecc71)";
+            if (szazalek > 70) szin = "linear-gradient(to top, #f39c12, #f1c40f)";
+
+            pontszamKijelzo.style.setProperty('--magassag', szazalek + "%");
+            pontszamKijelzo.style.setProperty('--szin', szin);
+
+            kenyerek.splice(kenyerIndex, 1);
+            kenyerLetrehozas();
         } else {
-            snake.pop();
+            kacsaTest.pop();
         }
     }
 }
 
-function draw() {
-    for (let x = 0; x < TILE_X; x++) {
-    for (let y = 0; y < TILE_Y; y++) {
-        if (x < TILE_X / 2 && y < TILE_Y / 2) {
-            ctx.fillStyle = (x + y) % 2 === 0 ? "#ff3355" : "#c60929";
-        } 
-        else if (x >= TILE_X / 2 && y < TILE_Y / 2) {
-            ctx.fillStyle = (x + y) % 2 === 0 ? "#864cbf" : "#46178f";
-        } 
-        else if (x < TILE_X / 2 && y >= TILE_Y / 2) {
-            ctx.fillStyle = (x + y) % 2 === 0 ? "#33cccc" : "#0aa3a3";
-        } 
-        else {
-            ctx.fillStyle = (x + y) % 2 === 0 ? "#f5a23d" : "#eb670f";
+function rajzolas() {
+    kontextus.clearRect(0, 0, vaszon.width, vaszon.height);
+    
+    // Háttér rajzolása
+    for (let x = 0; x < CSEMPE_X_SZAM; x++) {
+        for (let y = 0; y < CSEMPE_Y_SZAM; y++) {
+            if (x < CSEMPE_X_SZAM / 2 && y < CSEMPE_Y_SZAM / 2) {
+                kontextus.fillStyle = (x + y) % 2 === 0 ? "#ff3355" : "#c60928";
+            } else if (x >= CSEMPE_X_SZAM / 2 && y < CSEMPE_Y_SZAM / 2) {
+                kontextus.fillStyle = (x + y) % 2 === 0 ? "#864cbf" : "#47178f";
+            } else if (x < CSEMPE_X_SZAM / 2 && y >= CSEMPE_Y_SZAM / 2) {
+                kontextus.fillStyle = (x + y) % 2 === 0 ? "#33cccc" : "#0aa3a3";
+            } else {
+                kontextus.fillStyle = (x + y) % 2 === 0 ? "#f5a23d" : "#eb670f";
+            }
+            kontextus.fillRect(x * RACSMERET, y * RACSMERET, RACSMERET, RACSMERET);
         }
-
-        ctx.fillRect(x * GRID, y * GRID, GRID, GRID);
     }
-}
 
-    // Kenyerek
-    breads.forEach(b => {
-        ctx.fillStyle = "#d35400";
-        ctx.beginPath();
-        ctx.roundRect(b.x * GRID + 8, b.y * GRID + 12, GRID - 16, GRID - 20, 5);
-        ctx.fill();
-        ctx.fillStyle = "#edbb99";
-        ctx.fillRect(b.x * GRID + 12, b.y * GRID + 16, GRID - 24, GRID - 28);
+    // Halak rajzolása
+    kenyerek.forEach(hal => {
+        kontextus.font = "24px serif";
+        kontextus.textAlign = "center";
+        kontextus.textBaseline = "middle";
+        kontextus.fillText("🐟", hal.x * RACSMERET + RACSMERET / 2, hal.y * RACSMERET + RACSMERET / 2);
     });
 
-    // Kacsák rajzolása - A TRÜKK: a testrészeket hátulról előre rajzoljuk
-    for (let i = snake.length - 1; i >= 0; i--) {
-        let curr = snake[i];
-        let next = snake[i - 1];
-        let drawX, drawY;
+    // Kacsa rajzolása
+    kontextus.lineWidth = 2.5;
+    kontextus.strokeStyle = "#b7950b";
+    kontextus.fillStyle = "#f1c40f";
 
-        if (next) {
-            let dx = next.x - curr.x;
-            let dy = next.y - curr.y;
-            if (Math.abs(dx) > 1) dx = -Math.sign(dx);
-            if (Math.abs(dy) > 1) dy = -Math.sign(dy);
-            drawX = (curr.x + dx * moveProgress) * GRID;
-            drawY = (curr.y + dy * moveProgress) * GRID;
+    for (let i = kacsaTest.length - 1; i >= 0; i--) {
+        let aktualisResz = kacsaTest[i];
+        let kovetkezoResz = kacsaTest[i - 1];
+        let rajzX, rajzY;
+
+        if (kovetkezoResz) {
+            let eltolasX = kovetkezoResz.x - aktualisResz.x;
+            let eltolasY = kovetkezoResz.y - aktualisResz.y;
+            if (Math.abs(eltolasX) > 1) eltolasX = -Math.sign(eltolasX);
+            if (Math.abs(eltolasY) > 1) eltolasY = -Math.sign(eltolasY);
+
+            rajzX = (aktualisResz.x + eltolasX * mozgasiFolyamat) * RACSMERET;
+            rajzY = (aktualisResz.y + eltolasY * mozgasiFolyamat) * RACSMERET;
         } else {
-            drawX = (curr.x + currentDir.x * moveProgress) * GRID;
-            drawY = (curr.y + currentDir.y * moveProgress) * GRID;
+            rajzX = (aktualisResz.x + aktualisIrany.x * mozgasiFolyamat) * RACSMERET;
+            rajzY = (aktualisResz.y + aktualisIrany.y * mozgasiFolyamat) * RACSMERET;
         }
 
-        const centerX = drawX + GRID / 2;
-        const centerY = drawY + GRID / 2;
+        const kX = rajzX + RACSMERET / 2;
+        const kY = rajzY + RACSMERET / 2;
 
-        // KACSA TESTE - Itt a méret 20, ami kicsit nagyobb, mint a GRID/2 (20), 
-        // így a körök összeérnek és folytonos lesz a test.
-        ctx.fillStyle = "#f1c40f";
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, (i === 0) ? 19 : 25, 0, Math.PI * 2);
-        ctx.fill();
+        kontextus.beginPath();
+        kontextus.arc(kX, kY, sugar, 0, Math.PI * 2);
+        kontextus.fill();
+        kontextus.stroke();
 
-        // Csak a fej részletei
         if (i === 0) {
-            ctx.fillStyle = "#e67e22";
-            ctx.beginPath();
-            ctx.arc(centerX + currentDir.x * 14, centerY + currentDir.y * 14, 8, 0, Math.PI * 2);
-            ctx.fill();
+            // Csőr
+            kontextus.fillStyle = "#e67e22";
+            kontextus.beginPath();
+            kontextus.arc(kX + aktualisIrany.x * 10, kY + aktualisIrany.y * 10, 8, 0, Math.PI * 2);
+            kontextus.fill();
+            kontextus.stroke();
 
-            ctx.fillStyle = "black";
-            let eyeX = currentDir.x === 0 ? 9 : currentDir.x * 12;
-            let eyeY = currentDir.y === 0 ? 9 : currentDir.y * 12;
-            ctx.beginPath();
-            if (currentDir.x !== 0) {
-                ctx.arc(centerX + eyeX, centerY - 7, 3.5, 0, Math.PI * 2);
-                ctx.arc(centerX + eyeX, centerY + 7, 3.5, 0, Math.PI * 2);
+            // Szemek
+            kontextus.fillStyle = "black";
+            let szemTav = 6;
+            let szemEltolas = 6;
+            if (aktualisIrany.x !== 0) {
+                kontextus.beginPath();
+                kontextus.arc(kX + aktualisIrany.x * szemEltolas, kY - szemTav, 3.5, 0, Math.PI * 2);
+                kontextus.arc(kX + aktualisIrany.x * szemEltolas, kY + szemTav, 3.5, 0, Math.PI * 2);
+                kontextus.fill();
             } else {
-                ctx.arc(centerX - 7, centerY + eyeY, 3.5, 0, Math.PI * 2);
-                ctx.arc(centerX + 7, centerY + eyeY, 3.5, 0, Math.PI * 2);
+                kontextus.beginPath();
+                kontextus.arc(kX - szemTav, kY + aktualisIrany.y * szemEltolas, 3.5, 0, Math.PI * 2);
+                kontextus.arc(kX + szemTav, kY + aktualisIrany.y * szemEltolas, 3.5, 0, Math.PI * 2);
+                kontextus.fill();
             }
-            ctx.fill();
         }
     }
 
-    update();
-    requestAnimationFrame(draw);
+    // Overlay üzenetek
+    if (!jatekFut && !jatekVege) {
+        kontextus.fillStyle = "rgba(0, 0, 0, 0.5)";
+        kontextus.fillRect(0, 0, vaszon.width, vaszon.height);
+        kontextus.fillStyle = "white";
+        kontextus.font = "20px sans-serif";
+        kontextus.textAlign = "center";
+        kontextus.fillText("Nyomj meg egy nyilat az indításhoz!", vaszon.width / 2, vaszon.height / 2);
+    }
+
+    if (jatekVege) {
+        kontextus.fillStyle = "rgba(255, 0, 0, 0.6)";
+        kontextus.fillRect(0, 0, vaszon.width, vaszon.height);
+        kontextus.fillStyle = "white";
+        kontextus.font = "bold 30px sans-serif";
+        kontextus.textAlign = "center";
+        kontextus.fillText("GAME OVER", vaszon.width / 2, vaszon.height / 2 - 20);
+        kontextus.font = "16px sans-serif";
+        kontextus.fillText("Nyomj SPACE-t az újraindításhoz!", vaszon.width / 2, vaszon.height / 2 + 20);
+    }
+
+    frissites();
+    requestAnimationFrame(rajzolas);
 }
 
-draw();
+rajzolas();
