@@ -1,3 +1,8 @@
+body {
+    min-width: 650px; 
+    overflow-x: auto; 
+}
+
 canvas {
     background-color: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
@@ -6,6 +11,8 @@ canvas {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     display: block;
     margin-bottom: 0;
+    max-width: 100%;
+    height: auto;
 }
 #container{
     display: flex;
@@ -46,4 +53,16 @@ canvas {
     height: 300px;
     padding: 15px;
     border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+    #game-layout {
+        flex-direction: column; 
+    }
+    
+    .tartaly {
+        width: 80%;
+        height: 200px; /* Mobilon inkább fekvő legyen a számláló */
+        flex-direction: row;
+    }
 }
