@@ -14,19 +14,16 @@
 #kerdes {
     margin-bottom: 30px;
     font-size: 1.5rem;
+    
+}
+#kerdes-szoveg{
+    font-size: xx-large;
 }
 
-.gombok {
-    background-color: #46178f;
-    box-shadow: #ff6fff 0px 7px 20px;
-    width: 400px;
-    height: 50px;
-    padding: 15px;
-    margin: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
+button {
+    background-color: #22222200;
+    border: #22222200;
+    font-size: x-large;
 }
 
 .valasz-btn {
