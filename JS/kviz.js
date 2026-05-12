@@ -1,6 +1,7 @@
-var kerdesek = [];
+var kerdesek = [
+  ;
 
-var sorszam = 0;
+var sorszam = Math.floor(Math.random() * kerdesek.length);
 var pontok = 0; 
 
 function kerdesBetoltes() {
@@ -23,9 +24,9 @@ function valaszEllenorzese(szam) {
         alert("Sajnos rossz...");
     }
 
-    sorszam = sorszam + 1;
+    sorszam = Math.floor(Math.random() * kerdesek.length);
 
-    if (sorszam < kerdesek.length) {
+if (pontok < 10) { 
         kerdesBetoltes();
     } else {
         document.getElementById("kerdes-szoveg").style.display = "none";
@@ -35,7 +36,7 @@ function valaszEllenorzese(szam) {
         document.getElementById("b3").style.display = "none";
         
         document.getElementById("vege-uzenet").style.display = "block";
-        document.getElementById("eredmeny-szoveg").innerHTML = "Vége! Pontjaid: " + pontok;
+        document.getElementById("eredmeny-szoveg").innerHTML = "Gratulálok! Elértél 10 pontot! 🦆";
     }
 }
 
