@@ -24,17 +24,7 @@ button {
     background-color: #22222200;
     border: #22222200;
     font-size: x-large;
-}
-
-.valasz-btn {
-    padding: 15px 25px;
-    background-color: #444;
-    color: #ffd700;
-    border: 2px solid #ffd700;
-    border-radius: 10px;
     cursor: pointer;
-    font-size: 1.1rem;
-    transition: 0.3s;
 }
 
 .valasz-btn:hover {
@@ -44,4 +34,56 @@ button {
 
 .rejtett {
     display: none;
+}
+#vege-uzenet{
+    display:none; 
+    color:white;
+    font-size: xx-large;
+}
+
+.ujra{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+#ranglista-doboz {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    width: 250px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    color: white;
+    font-family: sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#ranglista-doboz h3 {
+    margin-top: 0;
+    text-align: center;
+    border-bottom: 1px solid gold;
+    padding-bottom: 5px;
+    color: gold;
+}
+
+#ranglista-elemek {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#ranglista-elemek li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+}
+
+#ranglista-elemek li:last-child {
+    border-bottom: none;
 }

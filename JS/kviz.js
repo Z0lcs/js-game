@@ -222,8 +222,39 @@ function jatekVege() {
 
     document.getElementById("vege-uzenet").style.display = "block";
     document.getElementById("eredmeny-szoveg").innerHTML = "Vége a játéknak! Összesen " + pontok + " pontot szereztél! 🏆";
+    mentesEsRanglista(pontok);
+    
+}
+
+function ranglistaFrissites() {
+    let lista = JSON.parse(localStorage.getItem("kacsaTop10")) || [];
+    let listaElem = document.getElementById("ranglista-elemek");
+    
+    if (listaElem) {
+        listaElem.innerHTML = "";
+        lista.forEach((adat, index) => {
+            let sor = document.createElement("li");
+            sor.innerHTML = `<span>${index + 1}. ${adat.nev}</span> <b>${adat.pont}</b>`;
+            listaElem.appendChild(sor);
+        });
+    }
+}
+
+function mentesEsRanglista(vegszoPont) {
+    let lista = JSON.parse(localStorage.getItem("kacsaTop10")) || [];
+    let nev = prompt("Vége a játéknak! Pontszámod: " + vegszoPont + "\nAdd meg a neved a listához:", "Kacsa");
+
+    if (nev) {
+        lista.push({ nev: nev, pont: vegszoPont });
+        lista.sort((a, b) => b.pont - a.pont);
+        lista = lista.slice(0, 10);
+        localStorage.setItem("kacsaTop10", JSON.stringify(lista));
+        ranglistaFrissites();
+    }
 }
 
 window.onload = function () {
+    //localStorage.removeItem("kacsaTop10");
     kerdesBetoltes();
+    ranglistaFrissites();
 };

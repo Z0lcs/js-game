@@ -12,21 +12,34 @@
 <body>
     <a href="index.html" id="fomenuGomb" class="uveges">Főmenübe</a>
     <div class="fokepernyo">
-        <div>
-            <h2 id="kerdes-szoveg uveges">Kérdés helye</h2>
-        </div>
-        <div class="gombok uveges"><button id="b0" onclick="valaszEllenorzese(0)">Válasz 1</button></div>
-        <div class="gombok uveges"><button id="b1" onclick="valaszEllenorzese(1)">Válasz 2</button></div>
-        <div class="gombok uveges"><button id="b2" onclick="valaszEllenorzese(2)">Válasz 3</button></div>
-        <div class="gombok uveges"><button id="b3" onclick="valaszEllenorzese(3)">Válasz 4</button></div>
 
-        <div id="vege-uzenet" style="display:none; color:white;">
-            <p id="eredmeny-szoveg"></p>
-            <div class="gombok"><a href="index.html">Vissza a menübe</a></div>
-        </div>
-    </div>
+        <body>
+            <a href="index.html" id="fomenuGomb" class="uveges">Főmenübe</a>
 
-    <script src="script.js"></script>
-</body>
+            <div id="ranglista-doboz" class="uveges">
+                <h3>Top 10 Kacsa 🏆</h3>
+                <ul id="ranglista-elemek"></ul>
+            </div>
+
+            <div class="fokepernyo">
+
+                <div>
+                    <h2 id="kerdes-szoveg uveges">Kérdés helye</h2>
+                </div>
+                <div class="gombok uveges"><button id="b0" onclick="valaszEllenorzese(0)">Válasz 1</button></div>
+                <div class="gombok uveges"><button id="b1" onclick="valaszEllenorzese(1)">Válasz 2</button></div>
+                <div class="gombok uveges"><button id="b2" onclick="valaszEllenorzese(2)">Válasz 3</button></div>
+                <div class="gombok uveges"><button id="b3" onclick="valaszEllenorzese(3)">Válasz 4</button></div>
+
+                <div id="vege-uzenet">
+                    <p id="eredmeny-szoveg"></p>
+                    <div class="uveges ujra">
+                        <button onclick="location.reload()">Újraindítás</button>
+                    </div>
+                </div>
+            </div>
+
+            <script src="script.js"></script>
+        </body>
 
 </html>
