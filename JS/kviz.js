@@ -252,7 +252,20 @@ function mentesEsRanglista(vegszoPont) {
         ranglistaFrissites();
     }
 }
-
+function ranglistaTorlese() {
+    if (confirm("Biztosan törölni szeretnéd az összes eddigi eredményt?")) {
+        // Törlés a helyi tárolóból
+        localStorage.removeItem('ranglista'); 
+        
+        // A képernyőn lévő lista kiürítése
+        const listaElem = document.getElementById('ranglista-elemek');
+        if (listaElem) {
+            listaElem.innerHTML = "";
+        }
+        
+        alert("Ranglista törölve!");
+    }
+}
 window.onload = function () {
     //localStorage.removeItem("kacsaTop10k");
     kerdesBetoltes();

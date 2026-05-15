@@ -55,14 +55,14 @@ button {
 }
 
 #ranglista-doboz {
-    display: flex;
-    flex-direction: column; /* Biztosítja, hogy a cím és a lista egymás alatt legyen */
-    align-items: center;    /* Középre igazítja a tartalmat belül */
-    position: relative; /* Nem lebeg, hanem követi a szöveget */
+    position: relative; /* Kiveszi a fix pozícióból, így követi a gombokat */
+    margin: 40px auto;  /* Távolságot tart a válaszoktól és középre igazít */
     width: 90%;
-    max-width: 300px;
-    margin: 20px auto; /* Középre igazítás mobilon */
+    max-width: 350px;
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #ranglista-doboz h3 {
@@ -75,22 +75,48 @@ button {
 }
 
 #ranglista-elemek {
-    width: 100%;            /* A lista is töltse ki a dobozt */
+    width: 100%;
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 #ranglista-elemek li {
     display: flex;
-    justify-content: space-between; /* Név balra, pontszám jobbra */
-    width: 100%;
-    padding: 5px 0;
+    justify-content: space-between;
+    padding: 8px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #ranglista-elemek li:last-child {
     border-bottom: none;
+}
+
+/* A gombot tartalmazó keret */
+.reset-kontener {
+    margin-top: 10px;
+    padding: 2px 10px; /* Kisebb belső hely */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.reset-kontener:hover {
+    background-color: rgba(255, 0, 0, 0.2); /* Finom piros jelzés törlés előtt */
+    transform: scale(0.98); /* Kattintás érzet: kicsit összemegy */
+}
+
+/* Maga a szöveges gomb */
+#reset-ranglista {
+    font-size: 0.75rem; /* Kisebb betűméret */
+    color: rgba(255, 255, 255, 0.6); /* Halványabb szín, hogy ne vonja el a figyelmet */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px;
+}
+
+#reset-ranglista:hover {
+    color: #fff;
 }
 
 @media (max-width: 600px) {
@@ -101,10 +127,11 @@ button {
 
 @media (min-width: 1024px) {
     #ranglista-doboz {
-        position: fixed; /* Itt már lebeg */
-        right: 20px;     /* Visszakerül a jobb oldalra */
-        top: 160px;       /* Fentről mért távolság */
-        width: 250px;
-        margin: 0;       /* Töröljük a mobil margót */
+        position: fixed;    /* Visszateszi a lebegő pozícióba */
+        right: 30px;        /* Jobb szélre tolja */
+        top: 100px;         /* Fentről mért távolság */
+        margin: 0;          /* Törli a mobilnál használt középre igazítást */
+        width: 250px;       /* Desktopon lehet keskenyebb */
+        z-index: 100;
     }
 }
