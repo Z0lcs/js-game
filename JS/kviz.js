@@ -241,20 +241,20 @@ function ranglistaFrissites() {
 }
 
 function mentesEsRanglista(vegszoPont) {
-    let lista = JSON.parse(localStorage.getItem("kacsaTop10")) || [];
+    let lista = JSON.parse(localStorage.getItem("kacsaTop10k")) || [];
     let nev = prompt("Vége a játéknak! Pontszámod: " + vegszoPont + "\nAdd meg a neved a listához:", "Kacsa");
 
     if (nev) {
         lista.push({ nev: nev, pont: vegszoPont });
         lista.sort((a, b) => b.pont - a.pont);
         lista = lista.slice(0, 10);
-        localStorage.setItem("kacsaTop10", JSON.stringify(lista));
+        localStorage.setItem("kacsaTop10k", JSON.stringify(lista));
         ranglistaFrissites();
     }
 }
 
 window.onload = function () {
-    //localStorage.removeItem("kacsaTop10");
+    //localStorage.removeItem("kacsaTop10k");
     kerdesBetoltes();
     ranglistaFrissites();
 };
