@@ -1,6 +1,7 @@
 #keszitok {
     position: relative;
-    width: 600px; 
+    width: 95vw; /* Szélesség a képernyőhöz igazítva */
+    max-width: 600px; 
     height: 400px;
     border-radius: 20px;
     display: flex;
@@ -35,9 +36,15 @@ img{
 
 @keyframes kor-palyan {
     from {
-        transform: rotate(0deg) translateX(150px) rotate(0deg);
+        transform: rotate(0deg) translateX(min(150px, 30vw)) rotate(0deg);
     }
     to {
-        transform: rotate(360deg) translateX(150px) rotate(-360deg);
+        transform: rotate(360deg) translateX(min(150px, 30vw)) rotate(-360deg);
     }
+}
+
+@media (max-width: 480px) {
+    #keszitok h1 { font-size: 1.2rem; }
+    #keszitok h2 { font-size: 1rem; top: 200px; }
+    img { width: 100px; top: 140px; }
 }

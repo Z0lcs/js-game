@@ -19,8 +19,10 @@
     font-size: 1.5rem;
     
 }
-#kerdes-szoveg{
-    font-size: xx-large;
+#kerdes-szoveg {
+    font-size: clamp(1.2rem, 5vw, 2rem); /* Rugalmas betűméret */
+    text-align: center;
+    padding: 0 10px;
 }
 
 button {
@@ -53,40 +55,56 @@ button {
 }
 
 #ranglista-doboz {
-    position: fixed;
-    right: 20px;
-    top: 80px;
-    width: 250px;
+    display: flex;
+    flex-direction: column; /* Biztosítja, hogy a cím és a lista egymás alatt legyen */
+    align-items: center;    /* Középre igazítja a tartalmat belül */
+    position: relative; /* Nem lebeg, hanem követi a szöveget */
+    width: 90%;
+    max-width: 300px;
+    margin: 20px auto; /* Középre igazítás mobilon */
     padding: 15px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    color: white;
-    font-family: sans-serif;
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #ranglista-doboz h3 {
-    margin-top: 0;
+    width: 100%;            /* Kitölti a szélességet, így a következő elem csak alatta fér el */
     text-align: center;
+    margin-bottom: 10px;
     border-bottom: 1px solid gold;
-    padding-bottom: 5px;
     color: gold;
+    padding-bottom: 5px;
 }
 
 #ranglista-elemek {
+    width: 100%;            /* A lista is töltse ki a dobozt */
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 #ranglista-elemek li {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Név balra, pontszám jobbra */
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #ranglista-elemek li:last-child {
     border-bottom: none;
+}
+
+@media (max-width: 600px) {
+    #valasz-opciok {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    #ranglista-doboz {
+        position: fixed; /* Itt már lebeg */
+        right: 20px;     /* Visszakerül a jobb oldalra */
+        top: 160px;       /* Fentről mért távolság */
+        width: 250px;
+        margin: 0;       /* Töröljük a mobil margót */
+    }
 }

@@ -1,29 +1,30 @@
 body {
-    min-width: 650px; 
-    overflow-x: auto; 
+    min-width: unset; 
 }
 
 canvas {
-    background-color: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    display: block;
-    margin-bottom: 0;
-    max-width: 100%;
+    max-width: 95vw; /* Ne lógjon le a képernyőről */
+    max-height: 60vh; /* Ne legyen túl magas, hogy látszódjon a pontszám is */
+    width: auto;
     height: auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
-#container{
+#container {
     display: flex;
-    flex-direction: row; 
-    align-items: center; 
-    gap: 50px;
+    flex-direction: column; /* Mobilon egymás alá */
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    padding: 10px;
 }
+
 #score {
-    font-size: 2rem;
-    margin-bottom: 40px;
-    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
 }
 
 .score{
@@ -45,24 +46,29 @@ canvas {
     opacity: 0.6;
 }
 
-.tartaly{
+.tartaly {
     display: flex;
     justify-content: center;
-    align-items: end;
-    width: 250px;
-    height: 300px;
-    padding: 15px;
-    border-radius: 20px;
+    align-items: center;
+    width: auto;
+    min-width: 120px;
+    height: 50px; /* Mobilon kisebb legyen a pontszám doboza */
+    padding: 10px 20px;
+    border-radius: 15px;
 }
 
-@media (max-width: 768px) {
-    #game-layout {
-        flex-direction: column; 
+@media (min-width: 768px) {
+    #container {
+        flex-direction: row; /* Desktopon egymás mellett */
+        gap: 50px;
     }
-    
     .tartaly {
-        width: 80%;
-        height: 200px; /* Mobilon inkább fekvő legyen a számláló */
-        flex-direction: row;
+        width: 250px;
+        height: 300px;
+        align-items: flex-end;
     }
+    #score {
+        font-size: 2rem;
+    }
+
 }

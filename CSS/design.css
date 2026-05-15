@@ -17,18 +17,16 @@ a {
 }
 
 #fomenuGomb {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    border-radius: 10px;
-    color: white;
+    position: relative; /* Fix helyett legyen a tartalom része mobilon */
+    display: block;
+    margin: 10px auto; /* Középre igazítás */
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 12px;
     font-weight: bold;
     z-index: 10;
-    width: 180px;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    float: left;
 }
 
 .fokepernyo {
@@ -57,9 +55,30 @@ a.uveges:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 400px;
-    height: 50px;
+    width: 90%; /* Fix 400px helyett */
+    max-width: 400px; /* De ne legyen nagyobb 400px-nél */
+    height: auto;
+    min-height: 50px;
     border-radius: 20px;
     padding: 15px;
-    margin: 15px;
+    margin: 10px;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    #fomenuGomb {
+        width: 120px;
+        font-size: 0.8rem;
+        left: 10px;
+        top: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    #fomenuGomb {
+        position: absolute; /* Desktopon maradhat a sarokban */
+        top: 20px;
+        left: 20px;
+        margin: 0;
+    }
 }
