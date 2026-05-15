@@ -227,7 +227,7 @@ function jatekVege() {
 }
 
 function ranglistaFrissites() {
-    let lista = JSON.parse(localStorage.getItem("kacsaTop10")) || [];
+    let lista = JSON.parse(localStorage.getItem("kacsaTop10k")) || [];
     let listaElem = document.getElementById("ranglista-elemek");
     
     if (listaElem) {
